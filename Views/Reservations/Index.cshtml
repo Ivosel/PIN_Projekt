@@ -1,0 +1,55 @@
+﻿@using PIN_Projekt.Helpers;
+@model IEnumerable<PIN_Projekt.Models.Reservation>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Active reservations</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Vehicle ID
+            </th>
+            <th>
+                Begin date
+            </th>
+            <th>
+                Return date
+            </th>
+            <th>
+                Total price
+            </th>
+            <th>
+                Customer e-mail
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.VehicleId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BeginDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReturnDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalCost) €
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@item.Id">Cancel reservation</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

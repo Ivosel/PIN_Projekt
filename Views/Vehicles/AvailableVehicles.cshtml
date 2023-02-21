@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewData["Title"] = "AvailableVehicles";
+}
+
+@model IEnumerable<Vehicle>
+
+<form asp-controller="Reservations" asp-action="Create">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Year</th>
+                <th>Daily Rate</th>
+                <th>Total Cost</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var vehicle in Model)
+            {
+               
+                    var TotalCost = vehicle.DailyRate * (ViewBag.ReturnDate - ViewBag.BeginDate).Days;
+     
+                <tr>
+                    <td>@vehicle.Type</td>
+                    <td>@vehicle.Make</td>
+                    <td>@vehicle.Model</td>
+                    <td>@vehicle.Year</td>
+                    <td>@vehicle.DailyRate €</td>
+                    <td>@TotalCost €</td>
+                    <td>
+                        <input type="radio" name="selectedVehicleId" value="@vehicle.Id" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <input type="hidden" name="startDate" value="@ViewBag.BeginDate" />
+    <input type="hidden" name="endDate" value="@ViewBag.ReturnDate" />
+    <button type="submit">Create Reservation</button>
+</form>
